@@ -5,17 +5,17 @@ import com.optimaize.langdetect.i18n.LdLocale;
 import com.optimaize.langdetect.ngram.NgramExtractors;
 import com.optimaize.langdetect.profiles.LanguageProfile;
 import com.optimaize.langdetect.profiles.LanguageProfileReader;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-public final class Main {
-    private Main() {
-    }
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public static void main(String[] args) throws IOException {
-        // optimaize language detector
-        String englisch = "Some may say, I don't know anything. But why? And where is the coffe shop?";
+class LanguageDetectionTest {
+    @Test
+    void detectsLanguages() throws IOException {
+        String english = "Some may say, I don't know anything. But why?";
         String italian = "Oggi ho mangiato la pizza. E poi ho bevuto un caffè.";
         String french = "Aujourd'hui, j'ai mangé une pizza. Et puis j'ai bu un café.";
 
@@ -24,9 +24,8 @@ public final class Main {
                 .withProfiles(languageProfiles)
                 .build();
 
-        System.out.println(detector.detect(englisch).transform(LdLocale::getLanguage));
-        System.out.println(detector.detect(italian).transform(LdLocale::getLanguage));
-        System.out.println(detector.detect(french).transform(LdLocale::getLanguage));
-
+        assertEquals("en", detector.detect(english).transform(LdLocale::getLanguage).orNull());
+        assertEquals("it", detector.detect(italian).transform(LdLocale::getLanguage).orNull());
+        assertEquals("fr", detector.detect(french).transform(LdLocale::getLanguage).orNull());
     }
 }
