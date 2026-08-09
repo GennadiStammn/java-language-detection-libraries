@@ -1,30 +1,34 @@
 package com.example.helloworld;
 
-import org.apache.tika.langdetect.optimaize.OptimaizeLangDetector;
+import org.apache.tika.langdetect.opennlp.OpenNLPDetector;
 import org.apache.tika.language.detect.LanguageDetector;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ApacheTikaLanguageDetectionTest {
+public class ApacheTikaOpennlpTest {
+
     @Test
-    void detectsEnglishText() {
-        LanguageDetector detector = new OptimaizeLangDetector().loadModels();
+    void detectsLanguages() throws IOException {
+        LanguageDetector detector = new OpenNLPDetector().loadModels();
 
         var result = detector.detect("""
                 The weather is pleasant today, so I am going to walk through the park
                 and read a book beside the lake.
                 """);
-        assertEquals("en", result.getLanguage());
+        assertEquals("eng", result.getLanguage());
 
         result = detector.detect("""
                 Oggi ho mangiato la pizza. E poi ho bevuto un caffè.
                 """);
-        assertEquals("it", result.getLanguage());
+        assertEquals("ita", result.getLanguage());
 
         result = detector.detect("""
                 Aujourd'hui, j'ai mangé une pizza. Et puis j'ai bu un café.
                 """);
-        assertEquals("fr", result.getLanguage());
+        assertEquals("fra", result.getLanguage());
     }
+
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LanguageDetectionTest {
+class OptimaizeLanguageDetectionTest {
     @Test
     void detectsLanguages() throws IOException {
         String english = "Some may say, I don't know anything. But why?";
